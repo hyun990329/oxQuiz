@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>OX Quiz - Main</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Arial;padding:24px;}
+    a{margin-right:8px}
+  </style>
+</head>
+<body>
+<h1>OX Quiz</h1>
+<div th:if="${member == null}">
+  <a href="/user/login">로그인</a>
+  <a href="/user/signup">회원가입</a>
+</div>
+<div th:if="${member != null}">
+  <p th:text="'안녕하세요, ' + ${member.loginId != null ? member.loginId : member.id} + '님' "></p>
+  <a href="/user/mypage">마이페이지</a>
+  <span th:if="${member.admin}">| <a href="/admin/pending">관리자 승인 페이지</a></span>
+  | <a href="/member/logout">로그아웃</a>
+</div>
+</body>
+</html>
