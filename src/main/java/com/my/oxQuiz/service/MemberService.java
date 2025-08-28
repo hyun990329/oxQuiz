@@ -16,12 +16,11 @@ public class MemberService {
 
     public MemberEntity signup(String id, String password) {
         if ("root".equals(id) && "admin".equals(password)) {
-            if (repository.existsAdminTrue()) {
+            if (repository.existsByAdminIsTrue()) {
                 throw new IllegalStateException("관리자가 이미 존재합니다");
             }
-            // 관리자 정보 입력 및 권한 부여
             MemberEntity admin = MemberEntity.builder()
-                    .Id(id)
+                    .id(id)
                     .password(password)
                     .status(true)
                     .admin(true)
@@ -30,9 +29,8 @@ public class MemberService {
                     .build();
             return repository.save(admin);
         }
-        // 유저 가입 정보 입력 (승인 대기)
         MemberEntity user = MemberEntity.builder()
-                .Id(id)
+                .id(id)
                 .password(password)
                 .status(false)
                 .admin(false)
@@ -42,7 +40,6 @@ public class MemberService {
         return repository.save(user);
     }
 
-    // 로그인
     @Transactional(readOnly = true)
     public Optional<MemberEntity> login(String id, String password) {
         return repository.findById(Long.valueOf(id))
@@ -50,20 +47,17 @@ public class MemberService {
                 .filter(MemberEntity::isStatus);
     }
 
-    // 승인 대기중인 유저 목록
     @Transactional(readOnly = true)
     public List<MemberEntity> pendingMembers() {
         return repository.findAllByAdminFalseAndStatusFalse();
     }
 
-    // 관리자 -> 유저 승인
     public void approveMember(Long no) {
         MemberEntity m = repository.findById(no).orElseThrow();
         m.setStatus(true);
         repository.save(m);
     }
 
-    // 문제 풀이 결과 반영
     public void updateResult(Long no, boolean correct) {
         MemberEntity m = repository.findById(no).orElseThrow();
         if(correct) m.setAnswerTrue(m.getAnswerTrue() + 1);

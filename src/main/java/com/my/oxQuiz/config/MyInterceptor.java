@@ -11,7 +11,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class MyInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // localhost:8080/user/login -> PostMapping 으로 넘어감
         HttpSession session = request.getSession();
         Object loginId = session.getAttribute("loginNo");
         if (ObjectUtils.isEmpty(loginId)) {

@@ -6,7 +6,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-// spring 이 구동 될 때 @Configuration 정의 된 것을 미리 실행
 public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     MyInterceptor myInterceptor;

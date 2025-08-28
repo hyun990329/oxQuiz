@@ -1,26 +1,21 @@
 package com.my.oxQuiz.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import java.time.LocalDateTime;
-
 
 @Entity
 @Table(name = "member")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class MemberEntity {
+public class MemberEntity extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long no; // PK
+    private Long no;
 
     @Column(name = "id", unique = true, nullable = false, length = 50)
-    private String Id;
+    private String id;
 
     @Column(nullable = false, length = 255)
     private String password;
@@ -36,11 +31,4 @@ public class MemberEntity {
 
     @Column(nullable = false)
     private int answerFalse;
-
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdDate;
-
-    @LastModifiedDate
-    private LocalDateTime modifiedDate;
 }

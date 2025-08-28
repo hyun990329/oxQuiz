@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface QuizRepository extends CrudRepository<QuizEntity, Integer> {
-    @Query(value = "SELECT id FROM quiz ORDER BY RAND() limit 1", nativeQuery = true)
+    @Query("SELECT q.id FROM QuizEntity q ORDER BY FUNCTION('RAND') LIMIT 1")
     Integer getRandomId();
 }

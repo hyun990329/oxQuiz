@@ -6,12 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MemberRepository extends JpaRepository <MemberEntity, Long> {
-    boolean existsAdminTrue();
+public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
+    boolean existsByAdminIsTrue();
     List<MemberEntity> findAllByAdminFalseAndStatusFalse();
+    @Query("SELECT m FROM MemberEntity m WHERE m.id = :id")
+    Optional<MemberEntity> findByMemberId(@Param("id") String id);
 }

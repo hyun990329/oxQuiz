@@ -22,7 +22,6 @@ public class AdminController {
         return admin instanceof Boolean && (Boolean) admin;
     }
 
-    // 승인 대기 회원 목록
     @GetMapping("/pending")
     public String pending(Model model, HttpSession session) {
         if (!isAdmin(session)) return "redirect:/user/login";
@@ -31,7 +30,6 @@ public class AdminController {
         return "admin/pending";
     }
 
-    // 회원 승인
     @PostMapping("/approve")
     public String approve(@RequestParam Long no, HttpSession session) {
         if (!isAdmin(session)) return "redirect:/user/login";

@@ -2,41 +2,32 @@ package com.my.oxQuiz.service;
 
 import com.my.oxQuiz.entity.QuizEntity;
 import com.my.oxQuiz.repository.QuizRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class QuizService {
-    @Autowired
-    QuizRepository repository;
+    private final QuizRepository repository;
 
-    public Iterable<QuizEntity> selectAll() {
-        return repository.findAll();
+    public List<QuizEntity> selectAll() {
+        return (List<QuizEntity>) repository.findAll();
     }
 
     public Optional<QuizEntity> selectOneRandomQuiz() {
         Integer randomId = repository.getRandomId();
-        System.out.println(Optional.empty());
-        if (randomId == null) {
-            return Optional.empty();
-        }
-        return repository.findById(randomId);
+        return randomId != null ? repository.findById(randomId) : Optional.empty();
     }
 
     public Boolean checkQuiz(Integer id, Boolean myAnswer) {
-        boolean check = false;
-        Optional<QuizEntity> optQuiz = repository.findById(id);
-        if(optQuiz.isPresent()) {
-            QuizEntity quiz = optQuiz.get();
-            if(quiz.isAnswer() == Boolean.parseBoolean(String.valueOf(myAnswer)))
-                check = true;
-        }
-        return check;
+        return repository.findById(id)
+                .map(quiz -> quiz.isAnswer() == myAnswer)
+                .orElse(false);
     }
 
     public void insertQuiz(QuizEntity quiz) {
