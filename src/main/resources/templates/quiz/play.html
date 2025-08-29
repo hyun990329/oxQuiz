@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>문제 풀기</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>OX 퀴즈</h1>
+<div class="question" th:text="${quiz?.question} ?: '문제가 로드되지 않았습니다'"></div>
+<div class="buttons">
+    <form th:action="@{/quiz/check}" method="post">
+        <input type="hidden" name="id" th:value="${quiz?.id}">
+        <button type="submit" name="answer" value="true">O</button>
+        <button type="submit" name="answer" value="false">X</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>마이페이지</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>마이페이지</h1>
+<div class="info" th:if="${member != null}">
+  <p>ID: <span th:text="${member.id}"></span></p>
+  <p>정답 수: <span th:text="${member.answerTrue}"></span></p>
+  <p>오답 수: <span th:text="${member.answerFalse}"></span></p>
+  <p>상태: <span th:text="${member.status ? '승인됨' : '승인 대기'}"></span></p>
+  <div class="nav">
+    <a href="/main">메인으로</a>
+  </div>
+</div>
+<div th:unless="${member != null}">
+  <p>로그인이 필요합니다.</p>
+  <div class="nav">
+    <a href="/user/login">로그인</a>
+  </div>
+</div>
+</body>
+</html>

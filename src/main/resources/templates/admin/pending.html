@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>승인 대기 회원</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>승인 대기 회원 목록</h1>
+<table>
+  <tr>
+    <th>번호</th>
+    <th>ID</th>
+    <th>승인</th>
+  </tr>
+  <tr th:each="member : ${waiting}">
+    <td th:text="${member.no}"></td>
+    <td th:text="${member.id}"></td>
+    <td>
+      <form th:action="@{/admin/approve}" method="post">
+        <input type="hidden" name="no" th:value="${member.no}">
+        <button type="submit">승인</button>
+      </form>
+    </td>
+  </tr>
+</table>
+<div class="nav">
+  <a href="/main">메인으로</a>
+</div>
+</body>
+</html>

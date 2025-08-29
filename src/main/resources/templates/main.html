@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>메인</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>OX 퀴즈</h1>
+<div class="nav" th:if="${member != null}">
+  <p th:text="'환영합니다, ' + ${member.id} + '님!'"></p>
+  <a href="/quiz/play">문제 풀기</a>
+  <a th:href="${member.admin ? '/admin/pending' : '#'}" th:style="${!member.admin ? 'display: none' : ''}">관리자 페이지</a>
+  <a href="/member/logout">로그아웃</a>
+</div>
+<div class="nav" th:unless="${member != null}">
+  <a href="/user/login">로그인</a>
+  <a href="/user/signup">회원가입</a>
+</div>
+</body>
+</html>

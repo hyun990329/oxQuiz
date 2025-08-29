@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>로그인</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>로그인</h1>
+<div class="message error" th:if="${error}" th:text="${error}"></div>
+<div class="message success" th:if="${signup == 'true'}" th:text="'회원가입 성공'"></div>
+<form action="/member/login" method="post" class="form-group">
+  <div>
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="id" required>
+  </div>
+  <div>
+    <label for="password">비밀번호:</label>
+    <input type="password" id="password" name="password" required>
+  </div>
+  <button type="submit">로그인</button>
+</form>
+<div class="nav">
+  <a href="/user/signup">회원가입</a>
+</div>
+</body>
+</html>
